@@ -30,7 +30,7 @@ async function runSimulation() {
 
         const BACKEND_URL = "https://nonhunting-reproachably-shawnee.ngrok-free.dev";
 
-    const response = await fetch(`${BACKEND_URL}/simulate`, {
+        const response = await fetch(`${BACKEND_URL}/simulate`, {
 
             method: "POST",
             headers: { "Content-Type": "application/json" },
