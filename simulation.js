@@ -281,7 +281,10 @@ value:values,
 opacity:0.1,
 surface_count:20,
 
-colorscale:"Viridis"
+colorscale:"Viridis",
+
+vmin=1.5.
+vmax=3.5
 
 }],{
 
