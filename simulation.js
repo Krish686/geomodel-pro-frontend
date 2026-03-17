@@ -92,8 +92,8 @@ function renderAllPlots(data, L, D) {
         y: data.z_nodes,
         type: "heatmap",
         colorscale: "Viridis",
-        vmax=3.5,
-        vmin=1.5
+        zmin: 1.5,
+        zmax: 3.5
     }], {
         ...layout,
         xaxis: { title: "Distance (m)" },
@@ -166,8 +166,8 @@ function renderAllPlots(data, L, D) {
         y: data.z_nodes,
         type: "heatmap",
         colorscale: "Viridis",
-        vmax=3.5,
-        vmin=1.5
+        zmin: 1.5,
+        zmax: 3.5
     }], {
         ...layout,
         xaxis: { title: "Distance" },
@@ -240,7 +240,9 @@ z:data.true_model,
 x:data.x_nodes,
 y:data.z_nodes,
 type:"heatmap",
-colorscale:"Viridis"
+colorscale:"Viridis",
+zmin: 1.5,
+zmax: 3.5
 }],{
 yaxis:{autorange:"reversed"}
 })
@@ -287,8 +289,8 @@ surface_count:20,
 
 colorscale:"Viridis",
 
-vmin=1.5.
-vmax=3.5
+zmin: 1.5,
+zmax: 3.5
 
 }],{
 
