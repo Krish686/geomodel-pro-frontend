@@ -2,15 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     runSimulation();
 });
 
-const GEO_COLORSCALE = [
-    [0.0, "#2c1a0f"],   // deep rock (dark brown)
-    [0.2, "#5a3e2b"],
-    [0.4, "#8c6239"],
-    [0.6, "#c2a27c"],
-    [0.8, "#e5d3b3"],
-    [1.0, "#f5f5f5"]    // light sediment
-];
-
 async function runSimulation() {
 
     const blocksStr = localStorage.getItem("geoBlocks");
@@ -39,7 +30,7 @@ async function runSimulation() {
 
         const BACKEND_URL = "https://nonhunting-reproachably-shawnee.ngrok-free.dev";
 
-        const response = await fetch(`${BACKEND_URL}/simulate`, {
+    const response = await fetch(`${BACKEND_URL}/simulate`, {
 
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -100,9 +91,7 @@ function renderAllPlots(data, L, D) {
         x: data.x_nodes,
         y: data.z_nodes,
         type: "heatmap",
-        zsmooth: "best",  
-        hoverongaps: false,
-        colorscale: GEO_COLORSCALE,
+        colorscale: "Viridis",
         zmin: 1.5,
         zmax: 3.5
     }], {
@@ -117,7 +106,7 @@ function renderAllPlots(data, L, D) {
     Plotly.react("plot-gravity", [{
         x: data.x_obs,
         y: data.d_obs,
-        mode: "lines", line: {     shape: "spline",     smoothing: 1.2,     width: 3 }
+        mode: "lines",
         name: "Observed Gravity"
     }], {
         ...layout,
@@ -129,24 +118,22 @@ function renderAllPlots(data, L, D) {
 
     // POWER SPECTRUM
     Plotly.react("plot-spectrum", [{
-    x: data.frequencies,
-    y: data.power,
-    mode: "lines",
-    line: {
-        width: 2
-    }
-}], {
-    ...layout,
-    xaxis: { title: "Frequency (1/m)", type: "log" },
-    yaxis: { title: "Power", type: "log" }
-}, config)
+        x: data.frequencies,
+        y: data.power,
+        mode: "lines"
+    }], {
+        ...layout,
+        xaxis: { title: "Frequency (1/m)" },
+        yaxis: { title: "Power", type: "log" }
+    }, config)
+    window.dispatchEvent(new Event('resize'));
 
 
     // FILTERED SIGNAL
     Plotly.react("plot-filtered", [{
         x: data.x_obs,
         y: data.d_pred,
-        mode: "lines", line: {     shape: "spline",     smoothing: 1.2,     width: 3 }
+        mode: "lines",
         name: "Filtered Gravity"
     }], {
         ...layout,
@@ -162,7 +149,7 @@ function renderAllPlots(data, L, D) {
     Plotly.react("plot-residual", [{
         x: data.x_obs,
         y: residual,
-        mode: "lines", line: {     shape: "spline",     smoothing: 1.2,     width: 3 }
+        mode: "lines",
         line: { color: "red" }
     }], {
         ...layout,
@@ -178,9 +165,7 @@ function renderAllPlots(data, L, D) {
         x: data.x_nodes,
         y: data.z_nodes,
         type: "heatmap",
-        zsmooth: "best",   
-        hoverongaps: false,
-        colorscale: GEO_COLORSCALE,
+        colorscale: "Viridis",
         zmin: 1.5,
         zmax: 3.5
     }], {
@@ -198,15 +183,13 @@ function renderAllPlots(data, L, D) {
         {
             x: data.x_obs,
             y: data.d_obs,
-            mode: "lines", 
-            line: { shape: "spline",     smoothing: 1.2,     width: 3 }
+            mode: "lines",
             name: "Observed"
         },
         {
             x: data.x_obs,
             y: data.d_pred,
-            mode: "lines", 
-            line: { shape: "spline",     smoothing: 1.2,     width: 3 }
+            mode: "lines",
             name: "Predicted"
         }
     ], {
@@ -257,9 +240,7 @@ z:data.true_model,
 x:data.x_nodes,
 y:data.z_nodes,
 type:"heatmap",
-zsmooth: "best",   
-hoverongaps: false,
-colorscale: GEO_COLORSCALE,
+colorscale:"Viridis",
 zmin: 1.5,
 zmax: 3.5
 }],{
@@ -307,9 +288,8 @@ opacity:0.1,
 surface_count:20,
 
 colorscale:"Viridis",
-
-zmin: 1.5,
-zmax: 3.5
+zmax:3.5,
+zmin:1.5,
 
 }],{
 
