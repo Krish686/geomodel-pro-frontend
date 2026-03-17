@@ -2,6 +2,15 @@ document.addEventListener('DOMContentLoaded', () => {
     runSimulation();
 });
 
+const GEO_COLORSCALE = [
+    [0.0, "#2c1a0f"],   // deep rock (dark brown)
+    [0.2, "#5a3e2b"],
+    [0.4, "#8c6239"],
+    [0.6, "#c2a27c"],
+    [0.8, "#e5d3b3"],
+    [1.0, "#f5f5f5"]    // light sediment
+];
+
 async function runSimulation() {
 
     const blocksStr = localStorage.getItem("geoBlocks");
@@ -91,7 +100,9 @@ function renderAllPlots(data, L, D) {
         x: data.x_nodes,
         y: data.z_nodes,
         type: "heatmap",
-        colorscale: "Viridis",
+        zsmooth: "best",  
+        hoverongaps: false,
+        colorscale: GEO_COLORSCALE,
         zmin: 1.5,
         zmax: 3.5
     }], {
@@ -106,7 +117,7 @@ function renderAllPlots(data, L, D) {
     Plotly.react("plot-gravity", [{
         x: data.x_obs,
         y: data.d_obs,
-        mode: "lines",
+        mode: "lines", line: {     shape: "spline",     smoothing: 1.2,     width: 3 }
         name: "Observed Gravity"
     }], {
         ...layout,
@@ -118,22 +129,24 @@ function renderAllPlots(data, L, D) {
 
     // POWER SPECTRUM
     Plotly.react("plot-spectrum", [{
-        x: data.frequencies,
-        y: data.power,
-        mode: "lines"
-    }], {
-        ...layout,
-        xaxis: { title: "Frequency (1/m)" },
-        yaxis: { title: "Power", type: "log" }
-    }, config)
-    window.dispatchEvent(new Event('resize'));
+    x: data.frequencies,
+    y: data.power,
+    mode: "lines",
+    line: {
+        width: 2
+    }
+}], {
+    ...layout,
+    xaxis: { title: "Frequency (1/m)", type: "log" },
+    yaxis: { title: "Power", type: "log" }
+}, config)
 
 
     // FILTERED SIGNAL
     Plotly.react("plot-filtered", [{
         x: data.x_obs,
         y: data.d_pred,
-        mode: "lines",
+        mode: "lines", line: {     shape: "spline",     smoothing: 1.2,     width: 3 }
         name: "Filtered Gravity"
     }], {
         ...layout,
@@ -149,7 +162,7 @@ function renderAllPlots(data, L, D) {
     Plotly.react("plot-residual", [{
         x: data.x_obs,
         y: residual,
-        mode: "lines",
+        mode: "lines", line: {     shape: "spline",     smoothing: 1.2,     width: 3 }
         line: { color: "red" }
     }], {
         ...layout,
@@ -165,7 +178,9 @@ function renderAllPlots(data, L, D) {
         x: data.x_nodes,
         y: data.z_nodes,
         type: "heatmap",
-        colorscale: "Viridis",
+        zsmooth: "best",   
+        hoverongaps: false,
+        colorscale: GEO_COLORSCALE,
         zmin: 1.5,
         zmax: 3.5
     }], {
@@ -183,13 +198,15 @@ function renderAllPlots(data, L, D) {
         {
             x: data.x_obs,
             y: data.d_obs,
-            mode: "lines",
+            mode: "lines", 
+            line: { shape: "spline",     smoothing: 1.2,     width: 3 }
             name: "Observed"
         },
         {
             x: data.x_obs,
             y: data.d_pred,
-            mode: "lines",
+            mode: "lines", 
+            line: { shape: "spline",     smoothing: 1.2,     width: 3 }
             name: "Predicted"
         }
     ], {
@@ -240,7 +257,9 @@ z:data.true_model,
 x:data.x_nodes,
 y:data.z_nodes,
 type:"heatmap",
-colorscale:"Viridis",
+zsmooth: "best",   
+hoverongaps: false,
+colorscale: GEO_COLORSCALE,
 zmin: 1.5,
 zmax: 3.5
 }],{
