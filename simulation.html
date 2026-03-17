@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Simulation Results | GeoModeler Pro</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+
+</head>
+
+
+<body>
+
+<nav class="navbar">
+<div class="nav-container">
+
+<div class="nav-brand">GeoModeler Pro</div>
+
+<button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+<ul class="nav-links" id="navLinks">
+<li><a href="index.html">Theory</a></li>
+<li><a href="model.html">Model Setup</a></li>
+<li><a href="simulation.html">Simulation</a></li>
+</ul>
+
+
+</div>
+</nav>
+
+
+<main class="container">
+
+
+<header class="page-header">
+
+<h1>Geophysical Simulation Results</h1>
+
+<p class="subtitle" id="error-display">
+Running full spectral filtering and inversion workflow...
+</p>
+
+</header>
+
+
+
+<!-- LOADING STATE -->
+
+<section class="content-card" id="status-section">
+
+<div id="loading-message" style="text-align:center;padding:3rem 1rem;">
+
+<div class="loader-spinner"></div>
+
+<h2>Running Simulation...</h2>
+
+<p>This may take a few seconds.</p>
+
+</div>
+
+
+<div id="error-message" style="display:none;text-align:center;padding:3rem 1rem;">
+
+<h2 style="color:#e53e3e;">Connection Error</h2>
+
+<p>Unable to connect to backend simulation server.</p>
+
+<button class="btn-primary" onclick="runSimulation()">
+
+Retry Simulation
+
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- RESULTS -->
+
+<section id="results-section" style="display:none;">
+
+
+<!-- TRUE MODEL -->
+
+<div class="content-card">
+
+<h2>1. True Geological Model</h2>
+
+<div id="plot-true-model" class="chart-container"></div>
+
+</div>
+
+
+
+<!-- POWER + DATA FIT -->
+
+<div class="content-card">
+<h2>2. Synthetic Gravity Data with Noise</h2>
+<div id="plot-gravity" class="chart-container"></div>
+</div>
+
+<div class="content-card">
+<h2>3. Power Spectrum of Gravity Data</h2>
+<div id="plot-spectrum" class="chart-container"></div>
+</div>
+
+<div class="content-card">
+
+<h2>FFT Filter Control</h2>
+
+<input
+type="range"
+min="0.0001"
+max="0.001"
+step="0.0001"
+value="0.0005"
+id="fftSlider"
+oninput="updateFFT(this.value)"
+>
+
+<p>Cutoff Frequency: <span id="fftValue">0.0005</span></p>
+
+</div>
+
+<div class="content-card">
+<h2>4. Gravity Signal After Spectral Filtering</h2>
+<div id="plot-filtered" class="chart-container"></div>
+</div>
+
+<div class="content-card">
+<h2>5. Residual Gravity (High Frequency Component)</h2>
+<div id="plot-residual" class="chart-container"></div>
+</div>
+
+<div class="content-card">
+<h2>6. Recovered Geological Model</h2>
+<div id="plot-recovered-model" class="chart-container"></div>
+</div>
+
+<div class="content-card">
+
+<h2>3D Geological Model Viewer</h2>
+
+<div id="plot-3d-model" class="chart-container"></div>
+
+</div>
+
+<div class="content-card">
+<h2>7. Data Fit After Inversion</h2>
+<div id="plot-data-fit" class="chart-container"></div>
+</div>
+
+<div class="content-card">
+<h2>8. Convergence Analysis: Error vs Grid Resolution</h2>
+<div id="plot-convergence" class="chart-container"></div>
+</div>
+
+
+
+
+<!-- CROSS SECTION -->
+<div class="content-card">
+
+<h2>Cross-Section Explorer</h2>
+
+<p>
+Drag the slider to inspect a vertical geological slice through the recovered model.
+</p>
+
+<input
+type="range"
+min="0"
+max="6000"
+step="50"
+value="3000"
+id="crossSectionSlider"
+oninput="updateCrossSection(this.value)"
+style="width:100%;margin-bottom:10px;"
+>
+
+<p>
+Slice Position: <strong><span id="slicePosition">3000</span></strong> m
+</p>
+
+<div id="cross-section-plot" class="chart-container"></div>
+
+</div>
+
+<div class="content-card">
+
+<h2>Density Legend</h2>
+
+<div class="density-legend">
+
+<div class="legend-item" style="background:#440154">High Density</div>
+<div class="legend-item" style="background:#3b528b">Medium-High</div>
+<div class="legend-item" style="background:#21918c">Medium</div>
+<div class="legend-item" style="background:#5ec962">Low</div>
+<div class="legend-item" style="background:#fde725">Very Low</div>
+
+</div>
+
+</div>
+</div>
+
+
+
+<!-- ACTION BUTTONS -->
+
+<div class="action-container">
+
+<button class="btn-primary" onclick="downloadResults()">
+
+Download Simulation Data
+
+</button>
+
+</div>
+
+
+<div class="action-container">
+
+<a href="model.html" class="btn-secondary">
+
+← Return to Model Editor
+
+</a>
+
+</div>
+
+
+
+</section>
+
+
+</main>
+
+
+<script src="simulation.js"></script>
+
+<script>
+function toggleMenu(){
+const menu=document.getElementById("navLinks")
+menu.classList.toggle("active")
+}
+</script>
+
+</body>
+
+</html>

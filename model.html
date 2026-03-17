@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Model Setup | GeoModeler Pro</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+<div class="nav-container">
+
+<div class="nav-brand">GeoModeler Pro</div>
+
+<button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+<ul class="nav-links" id="navLinks">
+<li><a href="index.html">Theory</a></li>
+<li><a href="model.html">Model Setup</a></li>
+<li><a href="simulation.html">Simulation</a></li>
+</ul>
+
+
+</div>
+</nav>
+
+
+<main class="container">
+
+<header class="page-header">
+
+<h1>Create Your Subsurface Model</h1>
+
+<p class="subtitle">
+Set the overall model size and create geological blocks
+</p>
+
+</header>
+
+
+<!-- GLOBAL SETTINGS -->
+
+<section class="content-card">
+
+<h2>Overall Model Settings</h2>
+
+<div class="global-settings">
+
+<div class="input-group">
+<label>Total Length (m)</label>
+<input type="number" id="modelLength" value="6000">
+</div>
+
+<div class="input-group">
+<label>Total Depth (m)</label>
+<input type="number" id="modelDepth" value="1000">
+</div>
+
+<div class="input-group">
+<label>Background Density (g/cc)</label>
+<input type="number" step="0.01" id="bgDensity" value="2.67">
+</div>
+
+<div class="input-group">
+<label>Grid Resolution X (m)</label>
+<input type="number" id="gridDx" value="50">
+</div>
+
+<div class="input-group">
+<label>Grid Resolution Z (m)</label>
+<input type="number" id="gridDz" value="50">
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SIMULATION CONTROLS -->
+
+<section class="content-card">
+
+<h2>Simulation Controls</h2>
+
+<div class="global-settings">
+
+<div class="input-group">
+<label>Noise Level (%)</label>
+<input type="range" min="0" max="20" value="10" id="noiseLevel"
+oninput="noiseValue.innerText=this.value">
+<span id="noiseValue">10</span>
+</div>
+
+<div class="input-group">
+<label>Regularization</label>
+<input type="range" min="0.001" max="1" step="0.001" value="0.05" id="lambdaReg"
+oninput="lambdaValue.innerText=this.value">
+<span id="lambdaValue">0.05</span>
+</div>
+
+<div class="input-group">
+<label>Filter Cutoff</label>
+<input type="range" min="0.0001" max="0.001" step="0.0001" value="0.0005" id="cutoffFreq"
+oninput="cutoffValue.innerText=this.value">
+<span id="cutoffValue">0.0005</span>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- GEOLOGICAL MODEL CANVAS -->
+
+<section class="content-card">
+
+<h2>Interactive Geological Model</h2>
+
+<p style="font-size:0.9rem;color:#666;margin-bottom:1rem;">
+
+Drag blocks with your mouse to reposition them.
+
+</p>
+
+<div class="canvas-container">
+
+<canvas id="modelCanvas"></canvas>
+
+</div>
+
+</section>
+
+
+<!-- BLOCK TABLE -->
+
+<section class="content-card">
+
+<div class="table-controls">
+
+<h2>Geological Blocks</h2>
+
+<div>
+
+<button class="btn-secondary" onclick="addBlock()">
+
++ Add New Block
+
+</button>
+
+<button class="btn-secondary" onclick="resetToDefault()">
+
+Reset Defaults
+
+</button>
+
+</div>
+
+</div>
+
+
+<div class="table-responsive">
+
+<table id="blocks-table">
+
+<thead>
+
+<tr>
+
+<th>Block</th>
+
+<th>Start X</th>
+
+<th>End X</th>
+
+<th>Top Depth</th>
+
+<th>Bottom Depth</th>
+
+<th>Density</th>
+
+<th>Delete</th>
+
+</tr>
+
+</thead>
+
+<tbody id="table-body"></tbody>
+
+</table>
+
+</div>
+
+
+<div class="action-container">
+
+<button class="btn-primary" onclick="saveAndProceed()">
+
+Save & Run Simulation →
+
+</button>
+
+</div>
+
+</section>
+
+</main>
+
+
+<script src="script.js"></script>
+
+<script>
+
+/* SAVE ALL PARAMETERS */
+
+function saveParameters(){
+
+localStorage.setItem("modelLength",
+document.getElementById("modelLength").value)
+
+localStorage.setItem("modelDepth",
+document.getElementById("modelDepth").value)
+
+localStorage.setItem("bgDensity",
+document.getElementById("bgDensity").value)
+
+localStorage.setItem("gridDx",
+document.getElementById("gridDx").value)
+
+localStorage.setItem("gridDz",
+document.getElementById("gridDz").value)
+
+localStorage.setItem("noiseLevel",
+document.getElementById("noiseLevel").value)
+
+localStorage.setItem("lambdaReg",
+document.getElementById("lambdaReg").value)
+
+localStorage.setItem("cutoffFreq",
+document.getElementById("cutoffFreq").value)
+
+}
+
+
+/* MODIFY ORIGINAL SAVE BUTTON */
+
+function saveAndProceed(){
+
+saveParameters()
+
+localStorage.setItem("geoBlocks",JSON.stringify(blocks))
+
+window.location.href="simulation.html"
+
+}
+
+</script>
+
+<script>
+function toggleMenu(){
+const menu=document.getElementById("navLinks")
+menu.classList.toggle("active")
+}
+</script>
+
+</body>
+</html>

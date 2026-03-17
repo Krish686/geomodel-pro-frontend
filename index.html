@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GeoModeler Pro</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+<div class="nav-container">
+
+<div class="nav-brand">GeoModeler Pro</div>
+
+<button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+<ul class="nav-links" id="navLinks">
+<li><a href="index.html">Theory</a></li>
+<li><a href="model.html">Model Setup</a></li>
+<li><a href="simulation.html">Simulation</a></li>
+</ul>
+
+</div>
+</nav>
+
+
+<!-- MAIN CONTENT -->
+
+<main class="container">
+
+
+<header class="page-header">
+
+<h1>Forward and Inverse Gravity Modeling</h1>
+
+<p class="subtitle">
+
+Accuracy and Convergence of Solutions — Full 8 Body Geological Model
+
+</p>
+
+</header>
+
+
+
+<!-- INTRODUCTION -->
+
+<section class="content-card">
+
+<h2>Introduction</h2>
+
+<p>
+
+Geophysical methods allow scientists to investigate the subsurface structure of the Earth using measurements taken at the surface.
+
+</p>
+
+<br>
+
+<p>
+
+In gravity surveys, variations in the Earth's gravitational field are caused by density contrasts between different rock bodies. Dense rocks produce positive gravity anomalies, while low-density rocks produce negative anomalies.
+
+</p>
+
+<br>
+
+<p>
+
+This project demonstrates a full workflow of gravity modeling and inversion using a synthetic geological model.
+
+</p>
+
+</section>
+
+
+
+<!-- WORKFLOW -->
+
+<section class="content-card">
+
+<h2>Simulation Workflow</h2>
+
+<p style="margin-bottom:1rem">
+
+The system simulates a complete geophysical interpretation pipeline:
+
+</p>
+
+
+<ol style="padding-left:1.5rem; line-height:1.8">
+
+<li>
+
+<strong>Model Construction</strong><br>
+
+Build a synthetic subsurface model with configurable density blocks.
+
+</li>
+
+
+<li>
+
+<strong>Forward Modeling</strong><br>
+
+Compute gravity anomalies caused by subsurface density variations.
+
+</li>
+
+
+<li>
+
+<strong>Noise Simulation</strong><br>
+
+Add realistic noise to mimic field survey data.
+
+</li>
+
+
+<li>
+
+<strong>Spectral Analysis</strong><br>
+
+Apply Fourier transforms to analyze frequency components of gravity data.
+
+</li>
+
+
+<li>
+
+<strong>Inverse Modeling</strong><br>
+
+Recover subsurface density distribution using regularized inversion.
+
+</li>
+
+</ol>
+
+
+<div class="action-container">
+
+<a href="model.html" class="btn-primary">
+
+Start Building Geological Model →
+
+</a>
+
+</div>
+
+</section>
+
+
+
+<!-- ABOUT -->
+
+<section class="content-card">
+
+<h2>About This Tool</h2>
+
+<p>
+
+GeoModeler Pro is an interactive geophysical modeling environment designed for educational and research purposes.
+
+</p>
+
+<br>
+
+<p>
+
+It integrates forward gravity modeling, spectral filtering, and inversion algorithms with interactive visualization to demonstrate how subsurface density structures influence observed gravity data.
+
+</p>
+
+</section>
+
+
+
+</main>
+
+<script>
+function toggleMenu(){
+const menu=document.getElementById("navLinks")
+menu.classList.toggle("active")
+}
+</script>
+
+</body>
+
+</html>
