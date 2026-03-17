@@ -91,7 +91,9 @@ function renderAllPlots(data, L, D) {
         x: data.x_nodes,
         y: data.z_nodes,
         type: "heatmap",
-        colorscale: "Viridis"
+        colorscale: "Viridis",
+        vmax=3.5,
+        vmin=1.5
     }], {
         ...layout,
         xaxis: { title: "Distance (m)" },
@@ -163,7 +165,9 @@ function renderAllPlots(data, L, D) {
         x: data.x_nodes,
         y: data.z_nodes,
         type: "heatmap",
-        colorscale: "Viridis"
+        colorscale: "Viridis",
+        vmax=3.5,
+        vmin=1.5
     }], {
         ...layout,
         xaxis: { title: "Distance" },
