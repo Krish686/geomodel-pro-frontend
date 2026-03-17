@@ -28,7 +28,7 @@ async function runSimulation() {
 
     try {
 
-        const BACKEND_URL = "https://nonhunting-reproachably-shawnee.ngrok-free.dev";
+        const BACKEND_URL = "http://10.145.7.24:8000";
 
         const response = await fetch(`${BACKEND_URL}/simulate`, {
 
